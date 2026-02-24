@@ -533,21 +533,21 @@
     ───────────────────────────────────────────── */
     async function fetchProducts() {
       showSkeletons(8);
-      try {
+      //try {
         const res = await fetch('products.json');
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         allProducts = await res.json();
         buildCategoryBar();
         renderProducts(allProducts);
-      } catch (err) {
-        document.getElementById('product-grid').innerHTML = `
+      //} catch (err) {
+      /*  document.getElementById('product-grid').innerHTML = `
           <div class="col-12 text-center py-5">
             <i class="bi bi-exclamation-triangle-fill fs-1" style="color:var(--saffron);"></i>
             <p class="mt-3 text-muted">Could not load products. Please try again.<br><small>${err.message}</small></p>
             <button class="btn btn-sm mt-2" style="background:var(--saffron);color:#fff;" onclick="fetchProducts()">Retry</button>
           </div>`;
         document.getElementById('results-text').textContent = 'Failed to load';
-      }
+      }*/
     }
 
     /* ─────────────────────────────────────────────
