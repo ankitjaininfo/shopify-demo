@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Desi Bazaar — Indian E-Commerce</title>
+
+  <!-- Bootstrap 5.3 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --saffron: #FF6B00;
+      --saffron-light: #FF8C38;
+      --saffron-pale: #FFF3E8;
+      --india-green: #138808;
+      --navy: #1a1a2e;
+      --card-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      --card-hover-shadow: 0 12px 40px rgba(255,107,0,0.18);
+    }
+
+    * { font-family: 'Poppins', sans-serif; }
+
+    body {
+      background: #f8f9fa;
+      color: #2d2d2d;
+    }
+
+    /* ── NAVBAR ── */
+    .navbar {
+      background: linear-gradient(135deg, var(--navy) 0%, #16213e 100%);
+      padding: 0.75rem 0;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+    }
+    .navbar-brand {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #fff !important;
+      letter-spacing: -0.5px;
+    }
+    .navbar-brand span { color: var(--saffron); }
+    .nav-search .form-control {
+      border: none;
+      border-radius: 25px 0 0 25px;
+      padding: 0.5rem 1.2rem;
+      font-size: 0.9rem;
+    }
+    .nav-search .btn {
+      border-radius: 0 25px 25px 0;
+      background: var(--saffron);
+      border: none;
+      padding: 0.5rem 1.2rem;
+      color: #fff;
+    }
+    .nav-search .btn:hover { background: var(--saffron-light); }
+    .nav-icons a {
+      color: rgba(255,255,255,0.8) !important;
+      font-size: 1.25rem;
+      margin-left: 1rem;
+      transition: color 0.2s;
+    }
+    .nav-icons a:hover { color: var(--saffron) !important; }
+    .cart-badge {
+      position: relative;
+      display: inline-block;
+    }
+    .cart-badge .badge {
+      position: absolute;
+      top: -8px;
+      right: -10px;
+      background: var(--saffron);
+      font-size: 0.6rem;
+      padding: 3px 5px;
+    }
+
+    /* ── HERO BANNER ── */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #16213e 60%, #0f3460 100%);
+      color: #fff;
+      padding: 4rem 0 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(255,107,0,0.12) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero-title {
+      font-size: 2.8rem;
+      font-weight: 700;
+      line-height: 1.15;
+    }
+    .hero-title span { color: var(--saffron); }
+    .hero-subtitle {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.7);
+      margin: 1rem 0 1.5rem;
+    }
+    .hero .btn-saffron {
+      background: var(--saffron);
+      color: #fff;
+      border: none;
+      padding: 0.75rem 2rem;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s;
+      box-shadow: 0 4px 20px rgba(255,107,0,0.4);
+    }
+    .hero .btn-saffron:hover {
+      background: var(--saffron-light);
+      transform: translateY(-2px);
+    }
+    .hero-stat {
+      text-align: center;
+      padding: 0.5rem 1.5rem;
+      border-right: 1px solid rgba(255,255,255,0.15);
+    }
+    .hero-stat:last-child { border-right: none; }
+    .hero-stat .num { font-size: 1.6rem; font-weight: 700; color: var(--saffron); }
+    .hero-stat .lbl { font-size: 0.75rem; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.05em; }
+
+    /* ── CATEGORY PILLS ── */
+    .category-bar {
+      background: #fff;
+      border-bottom: 1px solid #eee;
+      padding: 0.75rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .category-pill {
+      display: inline-block;
+      padding: 0.4rem 1.1rem;
+      border-radius: 25px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1.5px solid #e0e0e0;
+      background: #fff;
+      color: #555;
+      margin: 0 0.25rem;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .category-pill:hover,
+    .category-pill.active {
+      background: var(--saffron);
+      color: #fff;
+      border-color: var(--saffron);
+    }
+
+    /* ── SECTION TITLE ── */
+    .section-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      position: relative;
+      display: inline-block;
+      padding-bottom: 0.4rem;
+    }
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: var(--saffron);
+      border-radius: 2px;
+    }
+
+    /* ── PRODUCT CARD ── */
+    .product-card {
+      border: none;
+      border-radius: 16px;
+      box-shadow: var(--card-shadow);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      background: #fff;
+      height: 100%;
+    }
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--card-hover-shadow);
+    }
+    .product-img-wrap {
+      position: relative;
+      overflow: hidden;
+      height: 220px;
+      background: #f0f0f0;
+    }
+    .product-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .product-card:hover .product-img-wrap img { transform: scale(1.06); }
+    .product-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: var(--saffron);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .wishlist-btn {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      width: 34px;
+      height: 34px;
+      background: rgba(255,255,255,0.9);
+      border: none;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 1rem;
+      color: #aaa;
+      backdrop-filter: blur(4px);
+    }
+    .wishlist-btn:hover { color: #e74c3c; background: #fff; transform: scale(1.1); }
+    .wishlist-btn.active { color: #e74c3c; }
+
+    .card-body { padding: 1.1rem 1.2rem; }
+    .product-category {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--saffron);
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+    .product-name {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #1a1a1a;
+      line-height: 1.3;
+      margin-bottom: 0.5rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .product-desc {
+      font-size: 0.8rem;
+      color: #777;
+      line-height: 1.45;
+      margin-bottom: 0.75rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .rating-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 0.75rem;
+    }
+    .stars { color: #f5a623; font-size: 0.8rem; }
+    .rating-val { font-size: 0.8rem; font-weight: 600; color: #333; }
+    .review-cnt { font-size: 0.75rem; color: #999; }
+    .price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 1rem;
+    }
+    .price-current {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .price-original {
+      font-size: 0.85rem;
+      color: #aaa;
+      text-decoration: line-through;
+    }
+    .discount-tag {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--india-green);
+      background: #e8f5e9;
+      padding: 2px 7px;
+      border-radius: 10px;
+    }
+    .btn-add-cart {
+      width: 100%;
+      background: var(--navy);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 0.55rem;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: all 0.25s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .btn-add-cart:hover {
+      background: var(--saffron);
+      transform: translateY(-1px);
+    }
+    .btn-add-cart.added {
+      background: var(--india-green);
+    }
+
+    /* ── SKELETON LOADER ── */
+    .skeleton { background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 8px; }
+    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+    .skeleton-img { height: 220px; border-radius: 16px 16px 0 0; }
+    .skeleton-line { height: 14px; margin-bottom: 8px; }
+    .skeleton-line.short { width: 60%; }
+    .skeleton-line.shorter { width: 40%; }
+
+    /* ── TOAST ── */
+    .toast-container { z-index: 9999; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      color: rgba(255,255,255,0.6);
+      font-size: 0.85rem;
+    }
+    footer a { color: rgba(255,255,255,0.5); text-decoration: none; }
+    footer a:hover { color: var(--saffron); }
+    .footer-brand { font-size: 1.3rem; font-weight: 700; color: #fff; }
+    .footer-brand span { color: var(--saffron); }
+
+    /* ── MISC ── */
+    .sort-select {
+      border: 1.5px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 0.4rem 0.9rem;
+      font-size: 0.85rem;
+      color: #555;
+      cursor: pointer;
+    }
+    .sort-select:focus { outline: none; border-color: var(--saffron); }
+    .results-text { font-size: 0.9rem; color: #888; }
+
+    @media (max-width: 576px) {
+      .hero-title { font-size: 1.8rem; }
+      .hero-stat .num { font-size: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ NAVBAR ══ -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="#">Desi<span>Bazaar</span></a>
+
+      <div class="d-none d-md-flex nav-search mx-auto" style="max-width:420px; width:100%;">
+        <input class="form-control" type="text" placeholder="Search products, brands, categories…" />
+        <button class="btn"><i class="bi bi-search"></i></button>
+      </div>
+
+      <div class="nav-icons d-flex align-items-center">
+        <a href="#"><i class="bi bi-person-circle"></i></a>
+        <a href="#" class="cart-badge">
+          <i class="bi bi-bag"></i>
+          <span class="badge rounded-pill" id="cart-count">0</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ══ HERO ══ -->
+  <section class="hero">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-7">
+          <p class="mb-1" style="color:var(--saffron);font-size:0.85rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;">
+            <i class="bi bi-patch-check-fill me-1"></i> India's Most Loved Marketplace
+          </p>
+          <h1 class="hero-title">Discover the <span>Soul of India</span><br>Delivered to Your Door</h1>
+          <p class="hero-subtitle">Authentic products from local artisans, organic farms, and heritage brands — curated for modern India.</p>
+          <button class="btn btn-saffron">
+            <i class="bi bi-arrow-down-circle me-2"></i>Shop Now
+          </button>
+        </div>
+      </div>
+      <hr style="border-color:rgba(255,255,255,0.1); margin:2.5rem 0 1.5rem;" />
+      <div class="d-flex flex-wrap">
+        <div class="hero-stat"><div class="num">50K+</div><div class="lbl">Products</div></div>
+        <div class="hero-stat"><div class="num">1.2M+</div><div class="lbl">Happy Customers</div></div>
+        <div class="hero-stat"><div class="num">5000+</div><div class="lbl">Artisans</div></div>
+        <div class="hero-stat"><div class="num">Free</div><div class="lbl">Shipping ₹499+</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CATEGORY BAR ══ -->
+  <div class="category-bar">
+    <div class="container">
+      <div class="d-flex overflow-auto pb-1" style="gap:0.25rem;" id="category-bar">
+        <span class="category-pill active" data-cat="All">All</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PRODUCTS SECTION ══ -->
+  <section class="py-5">
+    <div class="container">
+      <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
+        <div>
+          <h2 class="section-title mb-1">Featured Products</h2>
+          <p class="results-text mt-2 mb-0" id="results-text">Loading…</p>
+        </div>
+        <select class="sort-select" id="sort-select">
+          <option value="default">Sort: Featured</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="rating">Top Rated</option>
+          <option value="discount">Best Discount</option>
+        </select>
+      </div>
+
+      <!-- Product Grid -->
+      <div class="row g-4" id="product-grid">
+        <!-- Skeleton loaders shown while fetching -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <footer class="py-5 mt-3">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="footer-brand mb-2">Desi<span>Bazaar</span></div>
+          <p style="font-size:0.82rem;line-height:1.6;">Celebrating India's artisans, farmers, and makers since 2019. Bring the essence of Bharat home.</p>
+          <div class="d-flex gap-3 mt-3">
+            <a href="#"><i class="bi bi-facebook fs-5"></i></a>
+            <a href="#"><i class="bi bi-instagram fs-5"></i></a>
+            <a href="#"><i class="bi bi-twitter-x fs-5"></i></a>
+            <a href="#"><i class="bi bi-youtube fs-5"></i></a>
+          </div>
+        </div>
+        <div class="col-md-2 col-6">
+          <h6 style="color:#fff;font-size:0.85rem;font-weight:600;margin-bottom:1rem;">Shop</h6>
+          <ul class="list-unstyled" style="line-height:2.2;">
+            <li><a href="#">New Arrivals</a></li>
+            <li><a href="#">Best Sellers</a></li>
+            <li><a href="#">Offers</a></li>
+            <li><a href="#">Gift Cards</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2 col-6">
+          <h6 style="color:#fff;font-size:0.85rem;font-weight:600;margin-bottom:1rem;">Help</h6>
+          <ul class="list-unstyled" style="line-height:2.2;">
+            <li><a href="#">Track Order</a></li>
+            <li><a href="#">Returns</a></li>
+            <li><a href="#">Shipping Info</a></li>
+            <li><a href="#">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h6 style="color:#fff;font-size:0.85rem;font-weight:600;margin-bottom:1rem;">Stay Updated</h6>
+          <p style="font-size:0.8rem;">Get exclusive deals and new arrivals straight to your inbox.</p>
+          <div class="input-group">
+            <input type="email" class="form-control form-control-sm" placeholder="Your email address" style="border-radius:8px 0 0 8px;" />
+            <button class="btn btn-sm" style="background:var(--saffron);color:#fff;border-radius:0 8px 8px 0;">Subscribe</button>
+          </div>
+          <div class="mt-3 d-flex gap-2 flex-wrap">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/200px-Google_Play_Store_badge_EN.svg.png" height="30" alt="Google Play" />
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Download_on_the_App_Store_Badge.svg/200px-Download_on_the_App_Store_Badge.svg.png" height="30" alt="App Store" />
+          </div>
+        </div>
+      </div>
+      <hr style="border-color:rgba(255,255,255,0.1);margin:2rem 0 1rem;" />
+      <div class="d-flex justify-content-between flex-wrap gap-2" style="font-size:0.78rem;">
+        <span>© 2025 DesiBazaar. Made with <i class="bi bi-heart-fill" style="color:var(--saffron);"></i> in India.</span>
+        <span>
+          <a href="#" class="me-3">Privacy Policy</a>
+          <a href="#" class="me-3">Terms of Use</a>
+          <a href="#">Sitemap</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ══ TOAST ══ -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="cart-toast" class="toast align-items-center text-bg-dark border-0" role="alert">
+      <div class="d-flex">
+        <div class="toast-body" id="toast-msg">
+          <i class="bi bi-bag-check-fill me-2" style="color:var(--saffron);"></i> Added to cart!
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap 5.3 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    /* ─────────────────────────────────────────────
+       State
+    ───────────────────────────────────────────── */
+    let allProducts = [];
+    let cartCount = 0;
+    let activeCategory = 'All';
+    const cartToast = new bootstrap.Toast(document.getElementById('cart-toast'), { delay: 2200 });
+
+    /* ─────────────────────────────────────────────
+       Fetch products from local API (products.json)
+    ───────────────────────────────────────────── */
+    async function fetchProducts() {
+      showSkeletons(8);
+      try {
+        const res = await fetch('products.json');
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        allProducts = await res.json();
+        buildCategoryBar();
+        renderProducts(allProducts);
+      } catch (err) {
+        document.getElementById('product-grid').innerHTML = `
+          <div class="col-12 text-center py-5">
+            <i class="bi bi-exclamation-triangle-fill fs-1" style="color:var(--saffron);"></i>
+            <p class="mt-3 text-muted">Could not load products. Please try again.<br><small>${err.message}</small></p>
+            <button class="btn btn-sm mt-2" style="background:var(--saffron);color:#fff;" onclick="fetchProducts()">Retry</button>
+          </div>`;
+        document.getElementById('results-text').textContent = 'Failed to load';
+      }
+    }
+
+    /* ─────────────────────────────────────────────
+       Skeleton loaders
+    ───────────────────────────────────────────── */
+    function showSkeletons(n) {
+      const grid = document.getElementById('product-grid');
+      grid.innerHTML = Array.from({ length: n }, () => `
+        <div class="col-sm-6 col-lg-4 col-xl-3">
+          <div class="product-card">
+            <div class="skeleton skeleton-img"></div>
+            <div class="p-3">
+              <div class="skeleton skeleton-line shorter mb-2"></div>
+              <div class="skeleton skeleton-line mb-2"></div>
+              <div class="skeleton skeleton-line short"></div>
+            </div>
+          </div>
+        </div>`).join('');
+    }
+
+    /* ─────────────────────────────────────────────
+       Category bar
+    ───────────────────────────────────────────── */
+    function buildCategoryBar() {
+      const cats = ['All', ...new Set(allProducts.map(p => p.category))];
+      const bar = document.getElementById('category-bar');
+      bar.innerHTML = cats.map(c => `
+        <span class="category-pill ${c === 'All' ? 'active' : ''}" data-cat="${c}">${c}</span>
+      `).join('');
+      bar.querySelectorAll('.category-pill').forEach(pill => {
+        pill.addEventListener('click', () => {
+          bar.querySelectorAll('.category-pill').forEach(p => p.classList.remove('active'));
+          pill.classList.add('active');
+          activeCategory = pill.dataset.cat;
+          applyFilters();
+        });
+      });
+    }
+
+    /* ─────────────────────────────────────────────
+       Filters & sorting
+    ───────────────────────────────────────────── */
+    function applyFilters() {
+      let list = activeCategory === 'All'
+        ? [...allProducts]
+        : allProducts.filter(p => p.category === activeCategory);
+
+      const sort = document.getElementById('sort-select').value;
+      if (sort === 'price-asc')   list.sort((a, b) => a.price - b.price);
+      if (sort === 'price-desc')  list.sort((a, b) => b.price - a.price);
+      if (sort === 'rating')      list.sort((a, b) => b.rating - a.rating);
+      if (sort === 'discount')    list.sort((a, b) => (b.original_price - b.price) / b.original_price - (a.original_price - a.price) / a.original_price);
+
+      renderProducts(list);
+    }
+
+    document.getElementById('sort-select').addEventListener('change', applyFilters);
+
+    /* ─────────────────────────────────────────────
+       Render product cards
+    ───────────────────────────────────────────── */
+    function renderProducts(products) {
+      const grid = document.getElementById('product-grid');
+      const resultText = document.getElementById('results-text');
+      resultText.textContent = `Showing ${products.length} product${products.length !== 1 ? 's' : ''}`;
+
+      if (!products.length) {
+        grid.innerHTML = `
+          <div class="col-12 text-center py-5">
+            <i class="bi bi-search fs-1 text-muted"></i>
+            <p class="mt-3 text-muted">No products found in this category.</p>
+          </div>`;
+        return;
+      }
+
+      grid.innerHTML = products.map(p => {
+        const discount = Math.round((1 - p.price / p.original_price) * 100);
+        const stars = renderStars(p.rating);
+        return `
+          <div class="col-sm-6 col-lg-4 col-xl-3">
+            <div class="product-card">
+              <div class="product-img-wrap">
+                <img src="${p.image}" alt="${p.name}" loading="lazy"
+                     onerror="this.src='https://placehold.co/400x300/f0f0f0/aaa?text=Image+N%2FA'" />
+                ${p.badge ? `<span class="product-badge">${p.badge}</span>` : ''}
+                <button class="wishlist-btn" onclick="toggleWishlist(this)" title="Wishlist">
+                  <i class="bi bi-heart-fill"></i>
+                </button>
+              </div>
+              <div class="card-body">
+                <div class="product-category">${p.category}</div>
+                <div class="product-name">${p.name}</div>
+                <div class="product-desc">${p.description}</div>
+                <div class="rating-row">
+                  <span class="stars">${stars}</span>
+                  <span class="rating-val">${p.rating}</span>
+                  <span class="review-cnt">(${p.reviews.toLocaleString('en-IN')})</span>
+                </div>
+                <div class="price-row">
+                  <span class="price-current">₹${p.price.toLocaleString('en-IN')}</span>
+                  <span class="price-original">₹${p.original_price.toLocaleString('en-IN')}</span>
+                  <span class="discount-tag">${discount}% off</span>
+                </div>
+                <button class="btn-add-cart" onclick="addToCart(this, '${p.name.replace(/'/g, "\\'")}')">
+                  <i class="bi bi-bag-plus"></i> Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    /* ─────────────────────────────────────────────
+       Helpers
+    ───────────────────────────────────────────── */
+    function renderStars(rating) {
+      const full  = Math.floor(rating);
+      const half  = rating % 1 >= 0.5 ? 1 : 0;
+      const empty = 5 - full - half;
+      return '<i class="bi bi-star-fill"></i>'.repeat(full)
+           + (half ? '<i class="bi bi-star-half"></i>' : '')
+           + '<i class="bi bi-star"></i>'.repeat(empty);
+    }
+
+    function addToCart(btn, name) {
+      cartCount++;
+      document.getElementById('cart-count').textContent = cartCount;
+      btn.classList.add('added');
+      btn.innerHTML = '<i class="bi bi-bag-check-fill"></i> Added!';
+      document.getElementById('toast-msg').innerHTML =
+        `<i class="bi bi-bag-check-fill me-2" style="color:var(--saffron);"></i> <strong>${name}</strong> added to cart`;
+      cartToast.show();
+      setTimeout(() => {
+        btn.classList.remove('added');
+        btn.innerHTML = '<i class="bi bi-bag-plus"></i> Add to Cart';
+      }, 2000);
+    }
+
+    function toggleWishlist(btn) {
+      btn.classList.toggle('active');
+      const icon = btn.querySelector('i');
+      icon.className = btn.classList.contains('active') ? 'bi bi-heart-fill' : 'bi bi-heart-fill';
+      btn.style.color = btn.classList.contains('active') ? '#e74c3c' : '';
+    }
+
+    /* ─────────────────────────────────────────────
+       Boot
+    ───────────────────────────────────────────── */
+    fetchProducts();
+  </script>
+</body>
+</html>
